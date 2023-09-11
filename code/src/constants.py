@@ -1,0 +1,4 @@
+CONST_PATH_SxGeo = 'data/SxGeo.dat' #Путь до БД SxGeo
+CONST_USER_AGENT_N_CLUSTERS = 20
+CONST_PATH_MODELS = 'models/'
+CONST_TRAFIC_N_CLUSTER = 30

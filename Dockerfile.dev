@@ -1,0 +1,30 @@
+FROM ubuntu:20.04
+
+USER root
+
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=Etc/UTC
+
+RUN apt-get update && apt-get install -y python3.9 python3-pip
+
+RUN pip3 install --upgrade pip
+
+WORKDIR /root/
+
+COPY requirements.txt /root/
+RUN pip3 install -r requirements.txt
+
+# Similar to the above, but with just the development-specific requirements
+COPY requirements-dev.txt /root/
+RUN pip install -r requirements-dev.txt
+
+#Jupyter-lab
+EXPOSE 8888
+RUN pip3 install jupyterlab==3.6.5
+
+USER root
+
+WORKDIR /root/code
+
+CMD uvicorn server:app --reload --host 0.0.0.0 | jupyter-lab --ip=0.0.0.0 --allow-root --NotebookApp.token='' --NotebookApp.password=''
+

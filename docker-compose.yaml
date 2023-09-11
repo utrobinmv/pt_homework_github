@@ -1,0 +1,18 @@
+version: '2.3'
+
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    shm_size: '16gb'
+    ports:
+      - 127.0.0.1:8002:8000
+      - 127.0.0.1:18904:8888
+    volumes:
+      - ./code:/root/code/
+    tmpfs:
+      - /tmp/
+    environment:
+      DEV: 'True'
+    network_mode: bridge
